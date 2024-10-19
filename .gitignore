@@ -1,0 +1,7 @@
+*
+
+!*.java
+!*/
+!.gitignore
+!.project
+
