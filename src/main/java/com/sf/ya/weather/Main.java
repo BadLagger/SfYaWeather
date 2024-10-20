@@ -59,7 +59,7 @@ class Weather {
 
 	public boolean setLatLon(float lat, float lon) {
 
-		if ((lat > 90.) || (lat < -90.) || (lon > 180.) || (lon < -180.) ) {
+		if ((lat > 90.) || (lat < -90.) || (lon > 180.) || (lon < -180.)) {
 			return false;
 		}
 
@@ -71,15 +71,14 @@ class Weather {
 
 	public boolean setLimit(int limit) {
 
-		//! TODO: checking limit ???
+		// ! TODO: checking limit ???
 		this.limit = limit;
 
 		return true;
 	}
 
 	public boolean makeRESTRequest() {
-		String uri_str = String.format(
-				Locale.ENGLISH, "%slat=%.05f&lon=%.05f", URL, lat, lon);
+		String uri_str = String.format(Locale.ENGLISH, "%slat=%.05f&lon=%.05f", URL, lat, lon);
 
 		if (limit > 0) {
 			uri_str += String.format(Locale.ENGLISH, "&limit=%d", limit);
@@ -89,16 +88,10 @@ class Weather {
 
 		try {
 			HttpClient httpClient = HttpClient.newHttpClient();
-			HttpRequest req = HttpRequest
-					.newBuilder()
-					.uri(URI.create(uri_str))
-					.header(HEADER_KEY, apiKey)
-					.GET()
+			HttpRequest req = HttpRequest.newBuilder().uri(URI.create(uri_str)).header(HEADER_KEY, apiKey).GET()
 					.build();
 
-
-			HttpResponse<String> resp = httpClient.send(req, 
-					HttpResponse.BodyHandlers.ofString());
+			HttpResponse<String> resp = httpClient.send(req, HttpResponse.BodyHandlers.ofString());
 
 			if (resp.statusCode() == 200) {
 				lastRawData = resp.body();
@@ -136,8 +129,7 @@ public class Main {
 	}
 
 	private static void showHelp() {
-		System.out.println(
-				"Help: Oops! This feature in development state!  Sorry!");
+		System.out.println("Help: Oops! This feature in development state!  Sorry!");
 	}
 
 	public static void main(String[] args) {
@@ -149,7 +141,7 @@ public class Main {
 			return;
 		}
 
-		//! TODO: Help message
+		// ! TODO: Help message
 		if (prms.isHelp()) {
 			showHelp();
 			return;
@@ -175,26 +167,23 @@ public class Main {
 			return;
 		}
 
-		System.out.format(Locale.ENGLISH, "Api file is: %s\n", 
-				prms.getApiFile().getName());
-		System.out.format(Locale.ENGLISH, "Latitude: %.04f\n", 
-				prms.getLat());
-		System.out.format(Locale.ENGLISH, "Longitude: %.04f\n", 
-				prms.getLon());
+		System.out.format(Locale.ENGLISH, "Api file is: %s\n", prms.getApiFile().getName());
+		System.out.format(Locale.ENGLISH, "Latitude: %.04f\n", prms.getLat());
+		System.out.format(Locale.ENGLISH, "Longitude: %.04f\n", prms.getLon());
 
 		if (prms.isLimit()) {
 			System.out.format("Limit: %d\n", prms.getLimit());
 			weather.setLimit(prms.getLimit());
 		}
 
-		if(!weather.makeRESTRequest()) {
+		if (!weather.makeRESTRequest()) {
 			System.out.println("Error: bad request");
 			return;
 		}
 
 		try {
 			System.out.println(prettyPrintJson(weather.getRawLastData()));
-		} catch(Exception err) {
+		} catch (Exception err) {
 			System.out.format("Error: %s\n", err.getMessage());
 		}
 	}
