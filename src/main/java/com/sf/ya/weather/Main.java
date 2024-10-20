@@ -235,7 +235,14 @@ public class Main {
 	public static void main(String[] args) {
 		Weather weather = new Weather();
 
-		weather.setApiKey("53d476cb-893a-4192-a896-d45b90729469");
+		
+		//weather.setApiKey("YouMaySetYourApiKeyLikeStringHere");
+		// or load it from file below (Note: File should contains only one string with API KEY)
+		if (!weather.setApiKey(new File("YaWeatherApi.txt"))) {
+			System.out.println("Error: Api file error");
+			return;
+		}
+		
 		if (!weather.setLatLon(55.7522f, 37.6156f)) {
 			System.out.println("Error: LatLon out of range");
 			return;
