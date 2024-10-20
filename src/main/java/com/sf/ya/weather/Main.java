@@ -231,53 +231,19 @@ class Weather {
 }
 
 public class Main {
-
-	private static void showHelp() {
-		System.out.println("Help: Oops! This feature in development state!  Sorry!");
-	}
-
+	
 	public static void main(String[] args) {
-		InputPrms prms = new InputPrms(args);
 		Weather weather = new Weather();
 
-		if (prms.isError()) {
-			System.out.format("Error: %s\n", prms.getError());
-			return;
-		}
-
-		// ! TODO: Help message
-		if (prms.isHelp()) {
-			showHelp();
-			return;
-		}
-
-		if (!prms.isApi()) {
-			System.out.println("Error: API file is mandatory");
-			return;
-		}
-
-		if (!weather.setApiKey(prms.getApiFile())) {
-			System.out.println("Error: bad API file format");
-			return;
-		}
-
-		if (!prms.isLatLon()) {
-			System.out.println("Error: LatLon parameter is mandatory");
-			return;
-		}
-
-		if (!weather.setLatLon(prms.getLat(), prms.getLon())) {
+		weather.setApiKey("53d476cb-893a-4192-a896-d45b90729469");
+		if (!weather.setLatLon(55.7522f, 37.6156f)) {
 			System.out.println("Error: LatLon out of range");
 			return;
 		}
-
-		System.out.format(Locale.ENGLISH, "Api file is: %s\n", prms.getApiFile().getName());
-		System.out.format(Locale.ENGLISH, "Latitude: %.04f\n", prms.getLat());
-		System.out.format(Locale.ENGLISH, "Longitude: %.04f\n", prms.getLon());
-
-		if (prms.isLimit()) {
-			System.out.format("Limit: %d\n", prms.getLimit());
-			weather.setLimit(prms.getLimit());
+		
+		if (!weather.setLimit(6)) {
+			System.out.println("Error: Limit out of range");
+			return;
 		}
 
 		if (!weather.makeRESTRequest()) {
@@ -285,16 +251,6 @@ public class Main {
 			return;
 		}
 		
-		if(!weather.saveFromLastDataToFile("debug.txt")) {
-			System.out.println("Error: save debug");
-		}
-		
-		/*if(!weather.loadToLastDataFromFile("debug.txt")) {
-			System.out.println("Error: load debug");
-			return;
-		}
-		
-		System.out.println("Load dbg OK!!!");*/
 		System.out.println(weather.getPrettyJsonLastData());
 		
 		try {
