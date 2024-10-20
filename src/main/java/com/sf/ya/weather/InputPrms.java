@@ -6,7 +6,10 @@ public class InputPrms {
 
 	private enum Errors {
 
-		None("None"), WrongPrm("Wrong Parameter"), BadApiFile("Bad API file"), BadLimitVal("Bad limit value"),
+		None("None"), 
+		WrongPrm("Wrong Parameter"), 
+		BadApiFile("Bad API file"), 
+		BadLimitVal("Bad limit value"),
 		BadLatlonValue("Bad LatLon value");
 
 		private String msg;
@@ -22,7 +25,11 @@ public class InputPrms {
 
 	private enum Prms {
 
-		ApiPath("-api"), Help("-help"), LatLon("-latlon"), Limit("-limit"), None("");
+		ApiPath("-api"), 
+		Help("-help"), 
+		LatLon("-latlon"), 
+		Limit("-limit"), 
+		None("");
 
 		private String val;
 
