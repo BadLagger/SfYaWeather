@@ -1,4 +1,4 @@
-package sf_yandex_weather;
+package com.sf.ya.weather;
 
 import java.io.File;
 
@@ -125,7 +125,7 @@ public class InputPrms {
 	Errors error = Errors.None;
 	
 	switch(prm) {
-	case Prms.ApiPath:
+	case ApiPath:
 	    apiFile = new File(val);
 	    if (apiFile.exists() && apiFile.isFile())
 		apiFlag = true;
@@ -134,7 +134,7 @@ public class InputPrms {
 		error = Errors.BadApiFile;
 	    }
 	    break;
-	case Prms.Limit:
+	case Limit:
 	    try {
 		limit = Integer.parseInt(val);
 		limFlag = true;
@@ -143,7 +143,7 @@ public class InputPrms {
 		error = Errors.BadLimitVal;
 	    }
 	    break;
-	case Prms.LatLon:
+	case LatLon:
 	    String[] latlon_arr = val.split(":");
 	    if (latlon_arr.length == 2) {
 		try {
